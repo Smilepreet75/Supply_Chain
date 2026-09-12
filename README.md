@@ -66,8 +66,46 @@ Each of the four normalized tables (Customers, Products, Orders, Order_Items) wa
 ## Status
 🔧 In progress — schema and cleaning complete, SQL analysis queries and Power BI dashboard in progress.
 
-## Next Steps
-- [ ] Write analytical SQL queries (late delivery rate, profit by category/region)
-- [ ] Build Power BI dashboard
-- [ ] Excel summary tables
-- [ ] Final insights & recommendation
+## SQL Analysis Queries
+
+All 12 business questions were answered directly in SQL first, then reproduced in Power BI (via DAX or query-loaded tables). Full queries saved in `/sql/analysis_queries.sql`.
+
+| # | Question | Key Finding |
+|---|---|---|
+| Q1 | Late delivery trend by quarter | Stable ~54-55% all year — not seasonal |
+| Q2 | Late rate by shipping mode | First Class 95%, Second Class 76%, Same Day 46%, Standard Class 38% (best, despite highest volume) |
+| Q3 | Late rate by region | Flat, 54-58% across all regions |
+| Q4 | Scheduled vs actual shipping gap | First Class: fixed 1-day delay on every order (Min=Max=Avg=1) — suggests over-promised delivery window, not inconsistent fulfillment |
+| Q5 | Profit margin by category | Accessories highest among reliable categories (12.5%, n≥1000); low-volume categories (Golf Bags & Carts, Strength Training) excluded as unreliable |
+| Q6 | Late delivery vs profit | On-time avg profit ₹22.40 vs late ₹21.62 (~3.5% gap) — small per order, but ~₹77,000+ across 98,977 late orders |
+| Q7 | Profit by region | Western Europe & Central America highest (driven by sales volume, not efficiency — margins similar ~10-12% everywhere) |
+| Q8 | Discount rate vs profit margin | Flat ~11.8-12.6% across all discount bands — discounting isn't a major profit leak |
+| Q9 | Late rate by customer segment | Flat, 54.7-55.2% — segment has no meaningful effect |
+| Q10 | Late rate by category | Flat, 54.5-57% (n≥1000 filter applied) — category has minimal effect |
+| Q11 | Discount vs shipping speed | Flat ~3 days across all discount bands — no correlation |
+| Q12 | Final recommendation | See `Q12_final_recommendation.md` — First Class's fixed 1-day gap is the core, fixable issue |
+
+**Note on sample size:** Q5 and Q10 exclude categories with fewer than 1,000 transactions; smaller categories showed misleadingly extreme rates (e.g. Golf Bags & Carts at n=61) that don't hold up at scale.
+
+## Power BI Dashboard
+
+3-page dashboard built on the same 4-table schema, connected directly to SQL Server (Import mode).
+
+**Page 1 — Overview:** KPI cards (Total Orders, Late Delivery Rate, Total Profit, Total Sales), late rate trend by quarter (Q1), late rate by shipping mode (Q2), late rate by region (Q3).
+
+**Page 2 — Delivery Deep-Dive:** shipping gap analysis by mode (Q4), and a combined "factor comparison" table showing customer segment and discount level have negligible impact on delivery (Q9, Q11).
+
+**Page 3 — Profit Analysis & Recommendation:** category margin vs late-rate combo chart (Q5+Q10 merged into one query, since both share the Category dimension), on-time vs late profit comparison via KPI cards (Q6), profit by region (Q7), discount vs margin (Q8), and the final written recommendation.
+
+**Key DAX measures:**
+```dax
+Late Delivery Rate = DIVIDE(SUMX(Orders, IF(Orders[Late_delivery_risk] = TRUE(), 1, 0)), COUNTROWS(Orders))
+Avg Profit = AVERAGEX(Order_Items, Order_Items[Order_Profit_Per_Order])
+Total Profit = SUM(Order_Items[Order_Profit_Per_Order])
+Total Sales = SUMX(Order_Items, Order_Items[Order_Item_Product_Price] * Order_Items[Order_Item_Quantity])
+```
+
+**Notable technical fixes along the way:**
+- `Late_delivery_risk` imported as Boolean (not numeric) from SQL Server's `bit` type — `SUM()` fails on Boolean, fixed using `SUMX` + `IF` to convert True/False to 1/0
+- Discount bucketing (`SWITCH(TRUE(), ...)`) must be a **calculated column**, not a measure, since it's row-level logic
+- Some complex aggregations (category margin/late-rate with sample-size filtering) were loaded via Power BI's "SQL statement" advanced option rather than rebuilt in DAX, to preserve the actual SQL logic and avoid duplicating filtering that's easier to express in SQL
