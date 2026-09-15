@@ -75,6 +75,9 @@ Slicers: Shipping Mode · Order Region · Order Date
 - **Late Delivery Rate by Shipping Mode** — the headline finding (Q2)
 - **Late Delivery Rate by Region** — sorted descending, confirms minimal regional impact (Q3)
 
+<img width="1920" height="1021" alt="Screenshot (181)" src="https://github.com/user-attachments/assets/c81bd6af-9020-4c69-91f2-5e69e87f22ae" />
+
+
 ### Page 2 — Delivery & Category Deep-Dive
 KPIs: Order Count · Late Delivery Rate · Total Discount Given · Overall Profit Margin
 Slicers: Shipping Mode · Product Category
@@ -85,6 +88,9 @@ Slicers: Shipping Mode · Product Category
 
 *The category scatter chart and segment table are fixed SQL query snapshots and don't respond to the slicers above (labeled on the dashboard).*
 
+<img width="1920" height="1024" alt="Screenshot (182)" src="https://github.com/user-attachments/assets/45d83eaf-f49c-441b-8fa6-3cb0bfbe029a" />
+
+
 ### Page 3 — Profit Analysis & Recommendation
 KPIs: Total Sales · Total Profit · Avg Profit (On-Time) · Avg Profit (Late)
 Slicers: Shipping Mode · Order Region
@@ -92,6 +98,9 @@ Slicers: Shipping Mode · Order Region
 - **Total Profit by Region** — Western Europe & Central America lead, driven by volume not efficiency (Q7)
 - **Profit Split: Late vs. On-Time Orders** — pie chart; late orders are a larger share of profit by volume despite earning less per order on average (Q6)
 - **Key Finding & Recommendation** — closing summary (Q12, full text below)
+
+  <img width="1920" height="1017" alt="Screenshot (183)" src="https://github.com/user-attachments/assets/1292060d-0911-4e82-a6c9-ad9036a03a69" />
+
 
 ### Key DAX measures
 ```dax
