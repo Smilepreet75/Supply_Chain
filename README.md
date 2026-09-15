@@ -46,7 +46,7 @@ Every table went through the same sequence: data type check → NULL check → p
 
 ## SQL Analysis Queries
 
-All 12 business questions were answered directly in SQL, then reproduced in Power BI via DAX or query-loaded tables. Full queries in `/sql/analysis_queries.sql`.
+All 12 business questions were answered directly in SQL, then reproduced in Power BI via DAX or query-loaded tables. Full queries in `/sql`.
 
 | # | Question | Key Finding |
 |---|---|---|
