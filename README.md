@@ -1,7 +1,7 @@
 # Supply Chain Late-Delivery & Profit Loss Analysis
 
 ## Problem
-Investigating which shipping modes, regions, and product categories cause the most late deliveries and profit loss for a global supply chain company, using SQL Server, Excel, and Power BI.
+Investigating which shipping modes, regions, and product categories cause the most late deliveries and profit loss for a global supply chain company, using SQL Server and Power BI.
 
 ## Dataset
 DataCo Smart Supply Chain Dataset (Kaggle) — ~180,500 order records, single flat CSV, normalized into a relational schema for this project. URL: https://www.kaggle.com/datasets/saicharankomati/dataco-supply-chain-dataset
@@ -9,7 +9,6 @@ DataCo Smart Supply Chain Dataset (Kaggle) — ~180,500 order records, single fl
 ## Tools
 - **SQL Server** — data cleaning, normalization, analytical queries (joins, window functions, stored procedures)
 - **Power BI** — 3-page interactive dashboard, DAX measures, some tables loaded via direct SQL query
-- **Excel** — summary pivot tables on smaller, pre-aggregated data
 
 ## Schema
 Normalized the original flat file into 4 tables:
