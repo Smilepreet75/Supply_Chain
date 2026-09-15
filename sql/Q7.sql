@@ -1,0 +1,2 @@
+select Order_Region, sum(Order_Profit_Per_Order) as Profit , sum(Order_Item_Product_Price * Order_Item_Quantity ) as Sale
+from Order_Items oi left join Orders o on oi.Order_Id = o.Order_Id group by Order_Region ORDER BY Profit ASC;;

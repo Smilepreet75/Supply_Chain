@@ -1,0 +1,2 @@
+select Customer_Segment ,cast(sum(case when Late_delivery_risk =1 then 1 else 0 end )as float) *100/ count(Late_delivery_risk) as Delivery_Experience 
+from Orders o left join Customer c on o.Order_Customer_Id = c.Customer_Id group by Customer_Segment
