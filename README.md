@@ -4,7 +4,7 @@
 Investigating which shipping modes, regions, and product categories cause the most late deliveries and profit loss for a global supply chain company, using SQL Server, Excel, and Power BI.
 
 ## Dataset
-DataCo Smart Supply Chain Dataset (Kaggle) — ~180,500 order records, single flat CSV, normalized into a relational schema for this project.
+DataCo Smart Supply Chain Dataset (Kaggle) — ~180,500 order records, single flat CSV, normalized into a relational schema for this project. URL: https://www.kaggle.com/datasets/saicharankomati/dataco-supply-chain-dataset
 
 ## Tools
 - **SQL Server** — data cleaning, normalization, analytical queries (joins, window functions, stored procedures)
